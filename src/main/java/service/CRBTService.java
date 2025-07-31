@@ -1,9 +1,49 @@
 package service;
 
+import java.awt.Taskbar.State;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
 
-public class CRBTService {
-	public List<String> getTones(){
+import crbt.db_utils.DBConnection;
+import dao.CRBTTonesDao;
+import pojo.Customer;
+
+public class CRBTService{
+	public HashMap<String, String> getTones(){
+		ResultSet rs = new CRBTTonesDao().getTones();
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		try {
+			while(rs.next()) {
+				map.put( rs.getInt(1)+". "+rs.getString(3),rs.getString(2) );
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return map;
+	}
+	public boolean setTone(String mobileNumber, int toneId) {
+		
+		return new CRBTTonesDao().setTone(mobileNumber, toneId);
 		
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
