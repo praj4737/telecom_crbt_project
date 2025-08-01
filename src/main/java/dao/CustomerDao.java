@@ -25,15 +25,15 @@ public class CustomerDao {
 		return row>0?true:false;
 	}
 	
-	public boolean updateBalance(double deductBalance) {
+	public boolean updateBalance(double deductBalance,String mobile) {
 		int row =0;
 		Connection con = DBConnection.getConnection();
 		try {
 		Statement st = con.createStatement();
-		String query = "udpate user_details set balance = balance-"+deductBalance+";";
+		String query = "update user_details set balance = balance-"+deductBalance+" where mobile='"+mobile+"';";
 		row = st.executeUpdate(query);
 		}catch (SQLException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		return row>0?true:false;

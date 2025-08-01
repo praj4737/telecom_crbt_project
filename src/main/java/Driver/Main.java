@@ -48,12 +48,12 @@ public class Main {
 				String mobileNumber = readPhoneNumber(sc);
 				if(new CRBTService().setTone(mobileNumber, readSongId(sc))) {
 					System.out.println("Caller tune set successfully.");
-					new Invoice().deduct();
+					new CRBTService().deduct(mobileNumber);
 					CRBTTonesDao dao = new CRBTTonesDao();
 					ResultSet rs = dao.getCustomerDetails(mobileNumber);
 					
 					if(rs.next()) {
-						new Invoice().generateInvoice(rs.getString(2), mobileNumber, choice);
+						System.out.println(new Invoice().generateInvoice(rs.getString(2), mobileNumber, 450));
 					}else {
 						System.out.println("failed to generate invoice.");
 					}
@@ -63,6 +63,13 @@ public class Main {
 				}
 				
 				break;
+			case 5:
+				if(new CRBTService().deactivateRingtone(readPhoneNumber(sc)
+						)) {
+					System.out.println("Caller tune deactivated successfully.");
+				}else {
+					System.out.println("failed to deactivate caller tune.");
+				}
 
 			default:
 				break;

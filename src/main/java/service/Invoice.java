@@ -1,18 +1,12 @@
 package service;
 
-import pojo.Billing;
+import java.time.LocalDate;
 
-public class Invoice implements Billing{
-	public static final double callerTunePrice = 50;
-
-	@Override
-	public boolean deduct() {
-		new CustomerServie().updateCustomerBalance(callerTunePrice);
-		return false;
-	}
+public class Invoice{
+	
 	public String generateInvoice(String name, String mobile, double available_balance) {
 		
-		return "\n--------abc telecom invoice-------\n Name: "+name+"\n"+"Mobile: "+mobile+"\n available balance: "+available_balance+"\n";
+		return "\n------------abc telecom invoice------------\nDate:"+LocalDate.now()+"\nYay!!Ring tone is set successfully for you \nName: "+name+"\n"+"Mobile: "+mobile+"\nDeducted: 50 rs.\navailable balance: "+available_balance+" rs.\nValidity: from and t0.\n----------------------------------------\n";
 	}
 	
 }

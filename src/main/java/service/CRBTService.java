@@ -13,6 +13,9 @@ import dao.CRBTTonesDao;
 import pojo.Customer;
 
 public class CRBTService{
+	
+	public static final double callerTunePrice = 50;
+	
 	public HashMap<String, String> getTones(){
 		ResultSet rs = new CRBTTonesDao().getTones();
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -33,6 +36,15 @@ public class CRBTService{
 		return new CRBTTonesDao().setTone(mobileNumber, toneId);
 		
 	}
+	public boolean deduct(String mobile) {
+		
+		return new CustomerServie().updateCustomerBalance(callerTunePrice,mobile);
+	}
+	public boolean deactivateRingtone(String mobileNumber) {
+		
+		return new CRBTTonesDao().decativateRingtone(mobileNumber);
+	}
+
 }
 
 

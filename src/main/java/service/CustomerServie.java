@@ -11,9 +11,9 @@ public class CustomerServie {
 		}
 		return new CustomerDao().saveCustomer(customer);
 	}
-	public boolean updateCustomerBalance(double deductBalance) {
+	public boolean updateCustomerBalance(double deductBalance,String mobile) {
 		
-		return new CustomerDao().updateBalance(deductBalance);
+		return new CustomerDao().updateBalance(deductBalance,mobile);
 	}
 
 }

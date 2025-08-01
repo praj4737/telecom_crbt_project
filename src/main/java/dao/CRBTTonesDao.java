@@ -37,7 +37,7 @@ public class CRBTTonesDao {
 		try {
 		Connection con = DBConnection.getConnection();
 		Statement st = con.createStatement();
-	 	String query = "insert into subscription(subscription_type,crbt_id,user_id) values('caller tune',"+"'"+toneId+"','"+id+"');";   
+	 	String query = "insert into subscription(subscription_type,crbt_id,user_id,status) values('caller tune',"+"'"+toneId+"','"+id+"',1);";   
 	 	row = st.executeUpdate(query);
 	 	
 		}catch (SQLException e) {
@@ -90,7 +90,39 @@ public class CRBTTonesDao {
 		
 		return rs;
 	}
+	public boolean decativateRingtone(String mobileNumber) { 
+		int id = getCustomerId(mobileNumber);
+		Connection con = DBConnection.getConnection();
+		Statement st = null;
+		
+		String query = "update subscription set status = 0 where user_id="+id+";";
 
+		int row = 0;
+		try {
+		 st = con.createStatement();
+		 row = st.executeUpdate(query);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return row>0?true:false;
+	}
+	public boolean setStatusFalse(String mobileNumber,int toneId) { 
+		int id = getCustomerId(mobileNumber);
+		Connection con = DBConnection.getConnection();
+		Statement st = null;
+		String query1 = "update table subscription set status = 'false' where user_id='"+id+"';";
+		//String query = "update table susbcription set status = 'false' where user_id='"+id+"' and crbt_id='"+toneId+"';";
+		int row = 0;
+		try {
+		 st = con.createStatement();
+		 row = st.executeUpdate(query1);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return row>0?true:false;
+	}
 }
 
 
